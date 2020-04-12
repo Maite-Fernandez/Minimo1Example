@@ -45,6 +45,14 @@ public class GameUser {
         return this.listGameObjects.size();
     }
 
+    //Swaggers Magic
+    public void setListGameObjects(List<GameObject> list){
+        this.listGameObjects = list;
+    }
+    public List<GameObject> getListGameObjects(){
+        return this.listGameObjects;
+    }
+
     //Adds an object to the user list
     public void setGameObject(GameObject gameObject){
             this.listGameObjects.add(gameObject);
