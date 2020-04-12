@@ -5,12 +5,12 @@ import java.util.List;
 public class GameUser {
 
     //Basic user values
-    private String id;
-    private String name;
-    private String surname;
+    public String id;
+    public String name;
+    public String surname;
 
     //Game user objects
-    private List<GameObject> listGameObjects = null;
+    private List<GameObject> listGameObjects=null;
 
     //Public constructor to initialize user
     public GameUser(String name, String surname){
@@ -54,8 +54,8 @@ public class GameUser {
     }
 
     //Adds an object to the user list
-    public void setGameObject(GameObject gameObject){
-            this.listGameObjects.add(gameObject);
+    public void setGameObject(GameObject object){
+            this.listGameObjects.add(object);
     }
 
     //Returns user's object list
@@ -66,5 +66,5 @@ public class GameUser {
     //Returns in string format the user
     @Override
     public String toString(){
-        return "User [id=" + this.getId() + ", name=" + this.getName() + ", level=" + this.getSurname() +"]" ; }
+        return "User [id=" + this.getId() + ", name=" + this.getName() + ", surname=" + this.getSurname() +"]" ; }
 }

@@ -4,8 +4,8 @@ package edu.upc.eetac.dsa;
 public class GameObject {
 
     //Basic object values
-    private  String name;
-    private  String id;
+    public  String name;
+    public  String id;
 
    //Public constructor to initialize object
     public GameObject(String name){
@@ -13,7 +13,7 @@ public class GameObject {
         this.id = RandomUtils.getId();
     }
 
-    //Empty constructor for de API REST
+    //Empty constructor for the API REST
     public GameObject(){
     }
 

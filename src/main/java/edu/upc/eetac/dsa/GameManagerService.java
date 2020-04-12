@@ -30,23 +30,23 @@ public class GameManagerService {
             if (this.manager.getNumUsers() == 0) {
 
                 //Adding Users
-                GameUser maite = this.manager.addUser("Maite","Fernandez");
-                GameUser toni = this.manager.addUser("Toni","Oller");
-                GameUser juan = this.manager.addUser("Juan","Lopez");
+                String userId1 = this.manager.addUser("Maite","Fernandez");
+                String userId2 = this.manager.addUser("Toni","Oller");
+                String userId3 = this.manager.addUser("Juan","Lopez");
 
                 //Adding GameObjects
-                GameObject sword = this.manager.addGameObject(new GameObject("Sword"));
-                GameObject shield = this.manager.addGameObject(new GameObject("Shield"));
-                GameObject coin= this.manager.addGameObject(new GameObject("Coin"));
+                String swordId = this.manager.addGameObject(new GameObject("Sword"));
+                String shieldId = this.manager.addGameObject(new GameObject("Shield"));
+                String coinId= this.manager.addGameObject(new GameObject("Coin"));
 
                 //Adding objects to users
                 //Sword and Shield to Maite
-                this.manager.addUserGameObject(maite,sword);
-                this.manager.addUserGameObject(maite,shield);
+                this.manager.addUserGameObject(userId1,swordId);
+                this.manager.addUserGameObject(userId1,shieldId);
                 //Only Coin for Toni
-                this.manager.addUserGameObject(toni,coin);
+                this.manager.addUserGameObject(userId2,coinId);
                 //Only sword for Juan
-                this.manager.addUserGameObject(juan,sword);
+                this.manager.addUserGameObject(userId3,swordId);
             }
         }
         //When multiple GET, PUT, POSTS & DELETE EXIST on the same SERVICE, path must be aggregated
@@ -77,8 +77,8 @@ public class GameManagerService {
         @Produces(MediaType.APPLICATION_JSON)
         public Response newUser( @PathParam("name") String name, @PathParam("surname") String surname ) {
             if (name.isEmpty() || surname.isEmpty() )  return Response.status(500).entity(new GameUser()).build();
-            GameUser user =this.manager.addUser(name,surname);
-            return Response.status(201).entity(user).build();
+            String userId =this.manager.addUser(name,surname);
+            return Response.status(201).entity(manager.getUser(userId)).build();
         }
 
         //Update a user
@@ -130,9 +130,9 @@ public class GameManagerService {
                     Response.status(204).build();
                 }
             }
-            listGameObject = user.getGameObjects();
+            listGameObject = manager.getUserGameObjects(id);
             GenericEntity<List<GameObject>> entity = new GenericEntity<List<GameObject>>(listGameObject) {};
-            return Response.status(201).entity(entity).build()  ;
+            return Response.status(201).entity(entity).build();
         }
 
         //Adds an object to a user
@@ -146,14 +146,13 @@ public class GameManagerService {
         @Path("/addGameObjectUser/{userId}/{objectId}")
         @Produces(MediaType.APPLICATION_JSON)
         public Response addObject(@PathParam("userId") String userId,@PathParam("gameObjectId") String gameObjectId ) {
-            if (userId.isEmpty() || gameObjectId.isEmpty())  return Response.status(500).entity(new GameUser()).build();
-            else{
+            if (userId.isEmpty() || gameObjectId.isEmpty()) return Response.status(500).entity(new GameUser()).build();
+            else {
                 GameUser user = manager.getUser(userId);
                 GameObject gameObject = manager.getGameObject(gameObjectId);
-                if(user==null || gameObject ==null)  return Response.status(404).entity(new GameUser()).build();
-                manager.addUserGameObject(user,gameObject);
+                if (user == null || gameObject == null) return Response.status(404).entity(new GameUser()).build();
             }
-
+            manager.addUserGameObject(userId, gameObjectId);
             return Response.status(201).entity(manager.getUser(userId)).build();
         }
 

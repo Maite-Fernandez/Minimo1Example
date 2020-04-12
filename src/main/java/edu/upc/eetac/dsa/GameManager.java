@@ -8,8 +8,8 @@ public interface GameManager {
     List<GameUser> getSortedUsers();
 
     //Add a user
-    GameUser addUser(String name, String surname);
-    GameUser addUser(GameUser user);
+    String addUser(String name, String surname);
+    String addUser(GameUser user);
 
     //Update a user
     GameUser updateUser(String id, String name, String surname);
@@ -21,15 +21,16 @@ public interface GameManager {
     GameUser getUser(String id);
 
     //Add an object
-    GameObject addGameObject(String name);
-    GameObject addGameObject(GameObject gameObject);
+    String addGameObject(String name);
+    String addGameObject(GameObject gameObject);
 
 
     //Get a game object
     GameObject getGameObject(String id);
 
     //Add an object to a user
-    GameObject addUserGameObject(GameUser user, GameObject gameObject);
+    String addUserGameObject(String userId, String gameObjectId);
+    String addUserGameObject(GameUser user, GameObject gameObject);
 
     //Get object list of a user in insertion order
     List<GameObject> getUserGameObjects(String id);

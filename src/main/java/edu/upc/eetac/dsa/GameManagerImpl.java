@@ -56,16 +56,18 @@ public class GameManagerImpl implements GameManager {
 
     //Add a user
     @Override
-    public GameUser addUser(GameUser u) {
+    public String addUser(GameUser u) {
         logger.info("new user " + u);
         this.mapUser.put(u.getId(),u);
         logger.info("new user added");
-        return u;
+        return u.getId();
 
     }
     @Override
-    public GameUser addUser(String name, String surname) {
-        return this.addUser(new GameUser(name,surname));
+    public String addUser(String name, String surname) {
+        GameUser u = new GameUser(name,surname);
+        this.addUser(u);
+        return u.getId();
     }
 
     //Get information about a user
@@ -81,15 +83,17 @@ public class GameManagerImpl implements GameManager {
 
     //Add an object
     @Override
-    public GameObject addGameObject(GameObject o) {
+    public  String addGameObject(GameObject o) {
         logger.info("new object " + o);
         this.listGameObjects.add(o);
         logger.info("new object added");
-        return o;
+        return o.getId();
     }
     @Override
-    public GameObject addGameObject(String name) {
-        return this.addGameObject(new GameObject(name));
+    public String addGameObject(String name) {
+        GameObject o = new GameObject(name);
+        this.addGameObject(o);
+        return o.getId();
 
     }
 
@@ -110,11 +114,28 @@ public class GameManagerImpl implements GameManager {
 
     //Add an object to a user
     @Override
-    public GameObject addUserGameObject(GameUser u, GameObject o) {
+    public String addUserGameObject(GameUser u, GameObject o) {
         logger.info("add object to user " + o);
         u.setGameObject(o);
         logger.info("new object added");
-        return o;
+        return u.getId();
+    }
+    @Override
+    public String addUserGameObject(String userId, String gameObjectId){
+        GameUser u = this.mapUser.get(userId);
+        if(u!=null) {
+            for(GameObject o : listGameObjects){
+                if (o.getId().equals(gameObjectId)) {
+                    logger.info("add User Object(" + gameObjectId + "): " + o);
+                    this.addUserGameObject(u,o);
+                    return u.getId();
+                } else {
+                    logger.info("not found ");
+                }
+            }
+
+        }
+        return null;
     }
 
     //Get object list of a user in insertion order
