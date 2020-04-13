@@ -145,7 +145,7 @@ public class GameManagerService {
         })
         @Path("/addGameObjectUser/{userId}/{objectId}")
         @Produces(MediaType.APPLICATION_JSON)
-        public Response addObject(@PathParam("userId") String userId,@PathParam("gameObjectId") String gameObjectId ) {
+        public Response addObject(@PathParam("userId") String userId,@PathParam("objectId") String gameObjectId ) {
             if (userId.isEmpty() || gameObjectId.isEmpty()) return Response.status(500).entity(new GameUser()).build();
             else {
                 GameUser user = manager.getUser(userId);
