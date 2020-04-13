@@ -53,10 +53,15 @@ PARTE II: 4 puntos
 operaciones:
 
 • lista de usuarios
+
 • añadir un usuario
+
 • modificar un usuario
+
 • consultar la información de un usuario
+
 • consultar los objetos de un usuario
+
 • añadir un objeto sobre un usuario
 
 NOTA: El servicio debe utilizar el componente construido en el punto anterior
