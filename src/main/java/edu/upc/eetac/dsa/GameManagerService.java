@@ -17,8 +17,8 @@ import javax.ws.rs.core.Response;
 import java.util.LinkedList;
 import java.util.List;
 
-@Api(value = "/users", description = "Endpoint to Game Manager Service")
-@Path("/users")
+@Api(value = "/GameManager", description = "Endpoint to Game Manager Service")
+@Path("/GameManager")
 public class GameManagerService {
 
         static final Logger logger = Logger.getLogger(GameManagerService.class);
@@ -40,7 +40,8 @@ public class GameManagerService {
                 String coinId= this.manager.addGameObject(new GameObject("Coin"));
 
                 //Adding objects to users
-                //Sword and Shield to Maite
+
+                //Sword and Shield for Maite
                 this.manager.addUserGameObject(userId1,swordId);
                 this.manager.addUserGameObject(userId1,shieldId);
                 //Only Coin for Toni

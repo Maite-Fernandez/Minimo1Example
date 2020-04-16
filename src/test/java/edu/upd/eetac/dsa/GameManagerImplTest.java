@@ -23,7 +23,6 @@ public class GameManagerImplTest {
     String swordId;
     String shieldId;
     String coinId;
-    List<GameObject> listGameObjects;
 
     //SetUp
     @Before
@@ -37,9 +36,6 @@ public class GameManagerImplTest {
 
         //Instancing GameManager Implementation
         manager = GameManagerImpl.getInstance();
-
-        //Initializing Object List
-        listGameObjects =  new LinkedList<GameObject>();
 
         //Initializing Test User
         userId = this.manager.addUser("Maite","Fernandez");
@@ -80,7 +76,7 @@ public class GameManagerImplTest {
         Assert.assertEquals(3, manager.getNumGameObjectsUser(userId));
     }
 
-    //Metodo Teardown
+    //Teardown
     @After
     public void tearDown() {
         manager.clearResources();
