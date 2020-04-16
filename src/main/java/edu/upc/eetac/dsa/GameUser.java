@@ -5,9 +5,9 @@ import java.util.List;
 public class GameUser {
 
     //Basic user values
-    public String id;
-    public String name;
-    public String surname;
+    private String id;
+    private String name;
+    private String surname;
 
     //Game user objects
     private List<GameObject> listGameObjects=null;

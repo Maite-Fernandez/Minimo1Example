@@ -11,7 +11,7 @@ public class GameManagerImpl implements GameManager {
     private static GameManager instance;
     private HashMap<String , GameUser> mapUser;
     private List<GameObject> listGameObjects;
-    private static Logger logger = Logger.getLogger(GameManagerImpl.class);
+    private static Logger log = Logger.getLogger(GameManagerImpl.class);
 
     //Private Constructor for Singleton
     private GameManagerImpl(){
@@ -30,6 +30,7 @@ public class GameManagerImpl implements GameManager {
     @Override
     public List<GameUser> getSortedUsers() {
         //Map of Users is not empty
+        log.info("Get Sorted Users");
         if(this.mapUser != null) {
             List<GameUser> result = new LinkedList<GameUser>(mapUser.values());
 
@@ -40,12 +41,13 @@ public class GameManagerImpl implements GameManager {
                     return u1.getName().compareToIgnoreCase(u2.getName());
                 }
             });
-            //Logger.info("List of users with alphabetical order: " + result.toString());
+            log.info("List of users with alphabetical order: " + result.toString());
             return result; //200 OK PETITION
         }
         else {
+            log.warn("Users list is empty");
             return null; //404 (Empty Table)
-            //Logger.warn(" is empty");
+
         }
 
     }
@@ -57,9 +59,9 @@ public class GameManagerImpl implements GameManager {
     //Add a user
     @Override
     public String addUser(GameUser u) {
-        logger.info("new user " + u);
+        log.info("Add user " + u);
         this.mapUser.put(u.getId(),u);
-        logger.info("new user added");
+        log.info("New user added");
         return u.getId();
 
     }
@@ -74,9 +76,9 @@ public class GameManagerImpl implements GameManager {
     @Override
     public GameUser getUser(String id) {
         GameUser u = this.mapUser.get(id);
-        logger.info("getUser("+id+")");
-        if(u!=null) { logger.info("getUser(" + id + "): " + u); }
-        else{ logger.warn("not found " + id);}
+        log.info("Get User("+id+")");
+        if(u!=null) { log.info("Get User (" + id + "): " + u); }
+        else{ log.error("Not found " + id);}
         return u;
     }
 
@@ -84,9 +86,9 @@ public class GameManagerImpl implements GameManager {
     //Add an object
     @Override
     public  String addGameObject(GameObject o) {
-        logger.info("new object " + o);
+        log.info("Add Game Object " + o);
         this.listGameObjects.add(o);
-        logger.info("new object added");
+        log.info("New Game Object added");
         return o.getId();
     }
     @Override
@@ -101,23 +103,23 @@ public class GameManagerImpl implements GameManager {
     //Get information about a game object
     @Override
     public GameObject getGameObject(String id){
-        logger.info("getObject("+id+")");
+        log.info("Get Game Object ("+id+")");
         for (GameObject o: this.listGameObjects) {
             if (o.getId().equals(id)) {
-                logger.info("getObject("+id+"): "+o);
+                log.info("Get Game Object ("+id+"): "+o);
                 return o;
             }
         }
-        logger.warn("not found " + id);
+        log.error("Not found");
         return null;
     }
 
     //Add an object to a user
     @Override
     public String addUserGameObject(GameUser u, GameObject o) {
-        logger.info("add object to user " + o);
+        log.info("Add object to user " + o);
         u.setGameObject(o);
-        logger.info("new object added");
+        log.info("New object added");
         return u.getId();
     }
     @Override
@@ -126,32 +128,31 @@ public class GameManagerImpl implements GameManager {
         if(u!=null) {
             for(GameObject o : listGameObjects){
                 if (o.getId().equals(gameObjectId)) {
-                    logger.info("add User Object(" + gameObjectId + "): " + o);
-                    this.addUserGameObject(u,o);
+                    log.info("Add User Object (" + gameObjectId + "): " + o);
+                    this.addUserGameObject(u, o);
                     return u.getId();
-                } else {
-                    logger.info("not found ");
                 }
             }
-
         }
+        log.error("Object or user not found.");
         return null;
     }
 
     //Get object list of a user in insertion order
     @Override
     public List<GameObject> getUserGameObjects(String id) {
-        //Logger.info("getUserGameObjects("+id+")");
+        log.info("Get User Game Objects ("+id+")");
         GameUser u = this.mapUser.get(id);
         if(u!=null) {
             List<GameObject> o = u.getGameObjects();
             if (o != null) {
-                logger.info("getUserObject(" + id + "): " + o);
+                log.info("Get User Game Object(" + id + "): " + o);
                 return o;
             } else {
-                logger.info("is empty ");
+                log.warn("Is empty");
             }
         }
+        log.error("User not found");
         return null;
     }
 
@@ -168,13 +169,13 @@ public class GameManagerImpl implements GameManager {
         GameUser u = this.mapUser.get(id);
 
         if (u!=null) {
-            logger.info(u+" rebut! ");
+            log.info(u+"update");
             u.setName(name);
             u.setSurname(surname);
-            logger.info(u+" updated ");
+            log.info(u+" updated ");
         }
         else {
-            logger.warn("not found");
+            log.error("Not found");
         }
 
         return u;

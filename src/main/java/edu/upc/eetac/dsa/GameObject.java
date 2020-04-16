@@ -4,8 +4,8 @@ package edu.upc.eetac.dsa;
 public class GameObject {
 
     //Basic object values
-    public  String name;
-    public  String id;
+    private  String name;
+    private  String id;
 
    //Public constructor to initialize object
     public GameObject(String name){

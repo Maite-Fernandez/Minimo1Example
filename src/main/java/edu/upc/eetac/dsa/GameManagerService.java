@@ -141,7 +141,7 @@ public class GameManagerService {
         @ApiResponses(value = {
                 @ApiResponse(code = 201, message = "Successful", response=GameUser.class),
                 @ApiResponse(code = 500, message = "Validation Error"),
-                @ApiResponse(code = 404, message = "User/GameObject Not found Error")
+                @ApiResponse(code = 404, message = "User of Object Not found Error")
         })
         @Path("/addGameObjectUser/{userId}/{objectId}")
         @Produces(MediaType.APPLICATION_JSON)
